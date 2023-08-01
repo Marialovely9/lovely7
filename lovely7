@@ -1,0 +1,22 @@
+double itr_fib(unsigned n)
+{
+  double a = 0.0, b = 1.0;
+  while (n-- > 0)
+  {
+    const auto sum = a + b;
+    a = b;
+    b = sum;
+  }
+
+  return a;
+}
+typedef double(*fib_variant)(unsigned);
+int test_fib(fib_variant fact)
+{
+  const unsigned ns[] = { 0, 1, 2, 4, 6, 10 };
+  const double fs[] = { 0., 1., 1., 3., 8., 55. };
+  for (unsigned i = 0; i < sizeof(fs) / sizeof(double); ++i)
+    if (fact(ns[i]) != fs[i])
+      return i + 1;
+  return 0;
+}
